@@ -1,0 +1,25 @@
+# Environments
+venv/
+env/
+.venv/
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Vector store / RAG artifacts
+chroma_db/
+*.chroma/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

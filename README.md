@@ -9,8 +9,7 @@ Several notebooks have a companion **`- Updated`** version. The originals were w
 Notebooks are grouped into folders by module/category, mirroring the course structure:
 
 ```
-03 - Setting Up the Env/
-04 - The OpenAI API/
+03-04 - The OpenAI API/
 05 - Model IO/
 07 - Output Parsers/
 08 - LCEL/
@@ -19,17 +18,12 @@ Notebooks are grouped into folders by module/category, mirroring the course stru
 
 ## Contents
 
-### `03 - Setting Up the Env/`
-| Notebook | Topic |
-|---|---|
-| `03 Setting Up the Env 03.ipynb` | Storing your OpenAI API key in a `.env` file and loading it as an environment variable with the `dotenv` IPython extension |
+### `03-04 - The OpenAI API/`
+The original course split environment setup (module 03) and OpenAI API basics (module 04) across four separate notebooks with a lot of repeated boilerplate (the same `%dotenv` + `openai.api_key` + `client` setup at the top of each). They've been consolidated into a single notebook that flows through all four lessons without repetition:
 
-### `04 - The OpenAI API/`
 | Notebook | Topic |
 |---|---|
-| `04 The OpenAI API 01.ipynb` | First steps calling the OpenAI API directly (no LangChain) |
-| `04 The OpenAI API 03.ipynb` | Creating a sarcastic chatbot |
-| `04 The OpenAI API 04.ipynb` | Temperature, max tokens, and streaming responses |
+| `03-04 The OpenAI API.ipynb` | 1. Setting the API key as an environment variable (`.env` + `%dotenv`, plus the `load_dotenv()` alternative) → 2. First steps calling the OpenAI API directly (no LangChain) → 3. Creating a sarcastic chatbot with system/user messages → 4. `max_tokens`, `temperature`, `seed`, and `stream` |
 
 ### `05 - Model IO/`
 | Notebook | Topic |
@@ -109,7 +103,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Set your OpenAI API key
-Create a `.env` file in the **repo root** (see `03 - Setting Up the Env/03 Setting Up the Env 03.ipynb` for the full walkthrough). `python-dotenv` searches upward from a notebook's working directory, so a root-level `.env` is found regardless of which subfolder a notebook lives in:
+Create a `.env` file in the **repo root** (see section 1 of `03-04 - The OpenAI API/03-04 The OpenAI API.ipynb` for the full walkthrough). `python-dotenv` searches upward from a notebook's working directory, so a root-level `.env` is found regardless of which subfolder a notebook lives in:
 
 ```
 OPENAI_API_KEY="sk-..."
@@ -139,4 +133,4 @@ jupyter notebook
 
 - Prefer the `- Updated` notebooks — they reflect LangChain 1.2.x's current package layout (`langchain-classic`, `langchain-chroma`, etc.). The non-updated notebooks are kept for reference but use import paths that no longer exist in current LangChain versions.
 - The RAG notebooks write a persisted Chroma vector store to disk (ignored via `.gitignore`); rerun the indexing notebooks (`09 RAG 06`–`13`) before the retrieval/generation ones if you clear that store.
-- Never commit your `.env` file or hardcode your API key — see `03 - Setting Up the Env/03 Setting Up the Env 03.ipynb` for why.
+- Never commit your `.env` file or hardcode your API key — see section 1 of `03-04 - The OpenAI API/03-04 The OpenAI API.ipynb` for why.

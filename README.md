@@ -9,7 +9,7 @@ Several notebooks have a companion **`- Updated`** version. The originals were w
 Notebooks are grouped into folders by module/category, mirroring the course structure:
 
 ```
-03-04 - The OpenAI API/
+The OpenAI API.ipynb   (env setup + OpenAI API basics, at repo root)
 05 - Model IO/
 07 - Output Parsers/
 08 - LCEL/
@@ -18,23 +18,15 @@ Notebooks are grouped into folders by module/category, mirroring the course stru
 
 ## Contents
 
-### `03-04 - The OpenAI API/`
-The original course split environment setup (module 03) and OpenAI API basics (module 04) across four separate notebooks with a lot of repeated boilerplate (the same `%dotenv` + `openai.api_key` + `client` setup at the top of each). They've been consolidated into a single notebook that flows through all four lessons without repetition:
-
-| Notebook | Topic |
-|---|---|
-| `03-04 The OpenAI API.ipynb` | 1. Setting the API key as an environment variable (`.env` + `%dotenv`, plus the `load_dotenv()` alternative) → 2. First steps calling the OpenAI API directly (no LangChain) → 3. Creating a sarcastic chatbot with system/user messages → 4. `max_tokens`, `temperature`, `seed`, and `stream` |
+### `The OpenAI API.ipynb` (repo root)
+The original course split environment setup (module 03) and OpenAI API basics (module 04) across four separate notebooks with a lot of repeated boilerplate (the same `%dotenv` + `openai.api_key` + `client` setup at the top of each). They've been consolidated into a single, code-focused notebook: 1. Setting the API key as an environment variable (`.env` + `%dotenv`, plus the `load_dotenv()` alternative) → 2. First chat completion call (no LangChain) → 3. A sarcastic chatbot with system/user messages → 4. `max_tokens`, `temperature`, `seed`, and `stream`.
 
 ### `05 - Model IO/`
+The original course split this module across seven notebooks (three of which had a companion `- Updated` version), each repeating the same `pip show langchain` / `%dotenv` / `ChatOpenAI(...)` boilerplate. They've been consolidated into a single notebook that defines one `chat` model and one few-shot `chat_template` and reuses each throughout:
+
 | Notebook | Topic |
 |---|---|
-| `05 Model IO 02.ipynb` / `- Updated` | `ChatOpenAI` — instantiating and invoking a chat model |
-| `05 Model IO 03.ipynb` / `- Updated` | System and human messages |
-| `05 Model IO 04.ipynb` / `- Updated` | AI messages (model responses) |
-| `05 Model IO 05.ipynb` | Prompt templates and prompt values |
-| `05 Model IO 06.ipynb` | Chat prompt templates and chat prompt values |
-| `05 Model IO 07.ipynb` | Few-shot chat message prompt templates |
-| `05 Model IO 08.ipynb` | `LLMChain` (legacy chain API) |
+| `05 Model IO.ipynb` | 1. `ChatOpenAI` — creating and invoking a chat model → 2. `SystemMessage` / `HumanMessage` / `AIMessage` (incl. multi-turn history) → 3. `PromptTemplate` → 4. `ChatPromptTemplate` → 5. Few-shot chat prompt templates → 6. Chains: legacy `LLMChain` vs. the modern LCEL `prompt \| model` pipe |
 
 ### `07 - Output Parsers/`
 | Notebook | Topic |
@@ -103,7 +95,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Set your OpenAI API key
-Create a `.env` file in the **repo root** (see section 1 of `03-04 - The OpenAI API/03-04 The OpenAI API.ipynb` for the full walkthrough). `python-dotenv` searches upward from a notebook's working directory, so a root-level `.env` is found regardless of which subfolder a notebook lives in:
+Create a `.env` file in the **repo root** (see section 1 of `The OpenAI API.ipynb` for the full walkthrough). `python-dotenv` searches upward from a notebook's working directory, so a root-level `.env` is found regardless of which subfolder a notebook lives in:
 
 ```
 OPENAI_API_KEY="sk-..."
@@ -133,4 +125,4 @@ jupyter notebook
 
 - Prefer the `- Updated` notebooks — they reflect LangChain 1.2.x's current package layout (`langchain-classic`, `langchain-chroma`, etc.). The non-updated notebooks are kept for reference but use import paths that no longer exist in current LangChain versions.
 - The RAG notebooks write a persisted Chroma vector store to disk (ignored via `.gitignore`); rerun the indexing notebooks (`09 RAG 06`–`13`) before the retrieval/generation ones if you clear that store.
-- Never commit your `.env` file or hardcode your API key — see section 1 of `03-04 - The OpenAI API/03-04 The OpenAI API.ipynb` for why.
+- Never commit your `.env` file or hardcode your API key — see section 1 of `The OpenAI API.ipynb` for why.

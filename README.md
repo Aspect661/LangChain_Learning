@@ -9,31 +9,25 @@ Several notebooks have a companion **`- Updated`** version. The originals were w
 Notebooks are grouped into folders by module/category, mirroring the course structure:
 
 ```
-The OpenAI API.ipynb   (env setup + OpenAI API basics, at repo root)
-05 - Model IO/
-07 - Output Parsers/
+1- The OpenAI API.ipynb   (env setup + OpenAI API basics)
+2- Model IO.ipynb         (chat models, messages, prompt templates, chains)
+3- Output Parsers.ipynb   (StrOutputParser, CommaSeparatedListOutputParser, DatetimeOutputParser)
 08 - LCEL/
 09 - RAG/            (also contains the sample source documents used by the loaders)
 ```
 
+The numbered `N- Topic.ipynb` files at the repo root are consolidated, single-notebook rewrites of what used to be multi-notebook folders (see below); the remaining `NN - Topic/` folders haven't been consolidated yet and still hold the original per-lesson notebooks.
+
 ## Contents
 
-### `The OpenAI API.ipynb` (repo root)
+### `1- The OpenAI API.ipynb` (repo root)
 The original course split environment setup (module 03) and OpenAI API basics (module 04) across four separate notebooks with a lot of repeated boilerplate (the same `%dotenv` + `openai.api_key` + `client` setup at the top of each). They've been consolidated into a single, code-focused notebook: 1. Setting the API key as an environment variable (`.env` + `%dotenv`, plus the `load_dotenv()` alternative) → 2. First chat completion call (no LangChain) → 3. A sarcastic chatbot with system/user messages → 4. `max_tokens`, `temperature`, `seed`, and `stream`.
 
-### `05 - Model IO/`
-The original course split this module across seven notebooks (three of which had a companion `- Updated` version), each repeating the same `pip show langchain` / `%dotenv` / `ChatOpenAI(...)` boilerplate. They've been consolidated into a single notebook that defines one `chat` model and one few-shot `chat_template` and reuses each throughout:
+### `2- Model IO.ipynb` (repo root)
+The original course split this module across seven notebooks (three of which had a companion `- Updated` version), each repeating the same `pip show langchain` / `%dotenv` / `ChatOpenAI(...)` boilerplate. They've been consolidated into a single notebook that defines one `chat` model and one few-shot `chat_template` and reuses each throughout: 1. `ChatOpenAI` — creating and invoking a chat model → 2. `SystemMessage` / `HumanMessage` / `AIMessage` (incl. multi-turn history) → 3. `PromptTemplate` → 4. `ChatPromptTemplate` → 5. Few-shot chat prompt templates → 6. Chains: legacy `LLMChain` vs. the modern LCEL `prompt | model` pipe.
 
-| Notebook | Topic |
-|---|---|
-| `05 Model IO.ipynb` | 1. `ChatOpenAI` — creating and invoking a chat model → 2. `SystemMessage` / `HumanMessage` / `AIMessage` (incl. multi-turn history) → 3. `PromptTemplate` → 4. `ChatPromptTemplate` → 5. Few-shot chat prompt templates → 6. Chains: legacy `LLMChain` vs. the modern LCEL `prompt \| model` pipe |
-
-### `07 - Output Parsers/`
-| Notebook | Topic |
-|---|---|
-| `07 Output Parsers 01.ipynb` | `StrOutputParser` |
-| `07 Output Parsers 02.ipynb` | `CommaSeparatedListOutputParser` |
-| `07 Output Parsers 03.ipynb` / `- Updated` | `DatetimeOutputParser` (moved to `langchain_classic.output_parsers` in the updated version) |
+### `3- Output Parsers.ipynb` (repo root)
+The original course split this module across three notebooks (one with a companion `- Updated` version), each repeating the same `pip show langchain` / `%dotenv` / `ChatOpenAI(...)` boilerplate. Consolidated into a single notebook with one shared `chat` model: 1. `StrOutputParser` — extracting plain text from an `AIMessage` → 2. `CommaSeparatedListOutputParser` — parsing a reply into a Python `list` → 3. `DatetimeOutputParser` — parsing a reply into a Python `datetime` (imported from `langchain_classic.output_parsers`, its home in LangChain v1).
 
 ### `08 - LCEL/` (LangChain Expression Language)
 | Notebook | Topic |
@@ -95,7 +89,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Set your OpenAI API key
-Create a `.env` file in the **repo root** (see section 1 of `The OpenAI API.ipynb` for the full walkthrough). `python-dotenv` searches upward from a notebook's working directory, so a root-level `.env` is found regardless of which subfolder a notebook lives in:
+Create a `.env` file in the **repo root** (see section 1 of `1- The OpenAI API.ipynb` for the full walkthrough). `python-dotenv` searches upward from a notebook's working directory, so a root-level `.env` is found regardless of which subfolder a notebook lives in:
 
 ```
 OPENAI_API_KEY="sk-..."
@@ -125,4 +119,4 @@ jupyter notebook
 
 - Prefer the `- Updated` notebooks — they reflect LangChain 1.2.x's current package layout (`langchain-classic`, `langchain-chroma`, etc.). The non-updated notebooks are kept for reference but use import paths that no longer exist in current LangChain versions.
 - The RAG notebooks write a persisted Chroma vector store to disk (ignored via `.gitignore`); rerun the indexing notebooks (`09 RAG 06`–`13`) before the retrieval/generation ones if you clear that store.
-- Never commit your `.env` file or hardcode your API key — see section 1 of `The OpenAI API.ipynb` for why.
+- Never commit your `.env` file or hardcode your API key — see section 1 of `1- The OpenAI API.ipynb` for why.
